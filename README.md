@@ -1,7 +1,7 @@
 # ChronoSync ⏲️  
 
 ## 📖 Descrição  
-**React ChronoSync** é uma aplicação simples e elegante que implementa um cronômetro utilizando React. Ideal para acompanhar atividades em equipe, produtividade pessoal ou qualquer tarefa que necessite de controle de tempo.  
+**ChronoSync** é uma aplicação simples e elegante que implementa um cronômetro utilizando React. Ideal para acompanhar atividades em equipe, produtividade pessoal ou qualquer tarefa que necessite de controle de tempo.  
 
 ## 🚀 Tecnologias Utilizadas  
 - **React**: Biblioteca JavaScript para construir a interface do usuário.  
