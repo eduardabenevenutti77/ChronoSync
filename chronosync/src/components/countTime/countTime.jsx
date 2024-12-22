@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 
 export default function CountTime() {
-    const [time, setTime] = useState(0); 
-    const [input, setInput] = useState(""); 
-    const [isRunning, setIsRunning] = useState(false);
-    const [intervalId, setIntervalId] = useState(null);
+    const [time, setTime] = useState(0); // Tempo restante em segundos
+    const [input, setInput] = useState(""); // Valor do input
+    const [isRunning, setIsRunning] = useState(false); // Se o timer está em execução
+    const [intervalId, setIntervalId] = useState(null); // ID do intervalo para controle
     const [inputType, setInputType] = useState("number"); // Tipo do input
 
     useEffect(() => {
@@ -26,7 +26,16 @@ export default function CountTime() {
         const parsedTime = parseInt(input);
 
         if (!isNaN(parsedTime) && parsedTime > 0) {
-            setTime(parsedTime * 3600); // Converte o tempo inserido para segundos (input em horas)
+            if (parsedTime >= 60) {
+                // Se o valor for maior ou igual a 60, trata-se de minutos
+                const hours = Math.floor(parsedTime / 60); // Obtém as horas
+                const minutes = parsedTime % 60; // Obtém os minutos restantes
+                setTime(hours * 3600 + minutes * 60); // Converte para segundos
+            } else {
+                // Caso contrário, trata-se de minutos
+                setTime(parsedTime * 60); // Converte minutos para segundos
+            }
+
             setIsRunning(true);
             setInput(""); // Limpa o input após iniciar
         } else {
@@ -71,17 +80,19 @@ export default function CountTime() {
                     type={inputType}
                     value={input}
                     onChange={handleInputChange}
-                    placeholder="Digite o tempo em horas"
+                    placeholder="Digite o tempo (minutos ou horas)"
                     disabled={isRunning} // Desabilita o input enquanto o timer está rodando
                 />
                 <button className="buttonStyle" onClick={start}>Iniciar</button>
             </div>
+
             <div className="countdown">
                 <h2 style={{ color: timeColor }}>
                     {time > 0 ? formatTime(time) : "00:00:00"}
                 </h2>
                 {time === 0 && !isRunning}
             </div>
+
             <div className="controls">
                 {isRunning ? (
                     <button className="buttonStyle" onClick={pause}>Pausar</button>
