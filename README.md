@@ -27,7 +27,7 @@
 1. **Clone o repositório**  
    ```bash  
    git clone https://github.com/eduardabenevenutti77/ChronoSync.git  
-   cd react-ChronoSync  
+   cd ChronoSync  
    ```  
 
 2. **Instale as dependências**  
@@ -83,6 +83,6 @@ Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir issues e 
 ## 💬 Contato  
 Para dúvidas ou sugestões:  
 📧 Email: [mariaeduardabenevenutti77@gmail.com](mailto:mariaeduardabenevenutti77@gmail.com)  
-🔗 GitHub: [github.com/eduardabenevenutti77o](https://github.com/eduardabenevenutti77)  
+🔗 GitHub: [github.com/eduardabenevenutti77](https://github.com/eduardabenevenutti77)  
 
 ---
