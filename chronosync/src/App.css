@@ -1,0 +1,38 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+#content {
+  flex-grow: 1;
+}
+
+.jost {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.khula-bold {
+  font-family: "Khula", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lexend-deca {
+  font-family: "Lexend Deca", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.rationale-regular {
+  font-family: "Rationale", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-color: rgb(238, 238, 237);
+}
