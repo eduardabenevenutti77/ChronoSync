@@ -1,0 +1,58 @@
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  width: 300px; 
+  min-height: 120px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.card-conteudo {
+  margin-top: 8px;
+}
+
+.detalhes {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+  font-family: "Jost";
+}
+
+h4 {
+    font-family: "Lexend Deca";
+    color: #811717;
+}
+
+
+.jost {
+  font-family: "Jost", sans-serif;
+}
+
+.khula-bold {
+  font-family: "Khula", sans-serif;
+  font-weight: 700;
+}
+
+.lexend-deca {
+  font-family: "Lexend Deca", sans-serif;
+}

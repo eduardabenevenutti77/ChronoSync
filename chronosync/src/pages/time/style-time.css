@@ -1,20 +1,44 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 p {
-    color: black;
-    font-family: "Jost";
+  color: black;
+  font-family: "Jost";
 }
 
 #title {
-    font-family: "Lexend Deca";
-    font-weight: 600;
-    font-size: 32px;
-    color: rgb(138, 48, 48);
+  font-family: "Lexend Deca";
+  font-weight: 600;
+  font-size: 32px;
+  color: rgb(138, 48, 48);
+  margin-top: 40px;
+}
+
+ul {
+  font-family: "Jost";
+}
+
+li::marker {
+  color: rgb(16, 105, 61); 
+  content: "✓ "; 
+  font-size: 16px; 
+}
+
+#marker {
+  font-family: "Khula";
+  font-weight: 600;
+  color: rgb(138, 48, 48);
+}
+
+#containerCard {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap; 
+  justify-content: center;
 }
 
 .jost {

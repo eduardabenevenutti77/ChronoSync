@@ -1,36 +1,58 @@
 footer {
-  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap; 
   background-color: #811717;
-  /* color: #FFFF; */
   border-radius: 15px;
-  padding: 8px;
-  width: 100%;
-  max-width: 1440px;
-  margin-left: 40px;
+  padding: 16px; 
+  width: 90%; 
+  max-width: 1820px;
+  margin: auto; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
 }
 
 #footer {
-    color: white;
-    text-align: center;
-    font-family: "Jost";
+  color: white;
+  text-align: center;
+  font-family: "Jost", sans-serif;
 }
 
 .jost {
   font-family: "Jost", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
 }
 
 .khula-bold {
   font-family: "Khula", sans-serif;
   font-weight: 700;
-  font-style: normal;
 }
 
 .lexend-deca {
   font-family: "Lexend Deca", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 25px;
+  }
+
+  #footer {
+    font-size: 14px; 
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    flex-direction: column; 
+    padding: 8px;
+    margin-top: 25px;
+  }
+
+  #footer {
+    font-size: 12px;
+  }
 }
