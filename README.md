@@ -70,8 +70,7 @@ chronoSync/
 
 ## 🔧 Possíveis Melhorias  
 - Incluir uma lista de tempos salvos (laps).  
-- Temas personalizáveis (modo claro/escuro).  
-- Integração com armazenamento local para salvar estado.  
+- Temas personalizáveis (modo claro/escuro).   
 
 ## 🤝 Contribuindo  
 Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir issues e pull requests no repositório.  
