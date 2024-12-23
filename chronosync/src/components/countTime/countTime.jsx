@@ -1,106 +1,124 @@
 import "./style-count.css";
 import { useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function CountTime() {
-    const [time, setTime] = useState(0); // Tempo restante em segundos
-    const [input, setInput] = useState(""); // Valor do input
-    const [isRunning, setIsRunning] = useState(false); // Se o timer está em execução
-    const [intervalId, setIntervalId] = useState(null); // ID do intervalo para controle
-    const [inputType, setInputType] = useState("number"); // Tipo do input
+  const [time, setTime] = useState(0);
+  const [input, setInput] = useState("");
+  const [isRunning, setIsRunning] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
 
-    useEffect(() => {
-        if (time === 0 || !isRunning) return;
+  useEffect(() => {
+    const savedEndTime = localStorage.getItem("timer-endTime");
+    const savedIsRunning = localStorage.getItem("timer-isRunning");
 
-        // Inicia a contagem regressiva
-        const id = setInterval(() => {
-            setTime((prevTime) => prevTime - 1); 
-        }, 1000);
+    if (savedEndTime && savedIsRunning === "true") {
+      const remainingTime = Math.max(0, Math.floor((savedEndTime - Date.now()) / 1000));
+      if (remainingTime > 0) {
+        setTime(remainingTime);
+        setIsRunning(true);
+      } else {
+        localStorage.removeItem("timer-endTime");
+        localStorage.removeItem("timer-isRunning");
+      }
+    }
+  }, []);
 
-        setIntervalId(id);
+  useEffect(() => {
+    if (!isRunning) return;
 
-        return () => clearInterval(id);
-    }, [time, isRunning]);
-
-    const start = () => {
-        const parsedTime = parseInt(input);
-
-        if (!isNaN(parsedTime) && parsedTime > 0) {
-            if (parsedTime >= 60) {
-                // Se o valor for maior ou igual a 60, trata-se de minutos
-                const hours = Math.floor(parsedTime / 60); // Obtém as horas
-                const minutes = parsedTime % 60; // Obtém os minutos restantes
-                setTime(hours * 3600 + minutes * 60); // Converte para segundos
-            } else {
-                // Caso contrário, trata-se de minutos
-                setTime(parsedTime * 60); // Converte minutos para segundos
-            }
-
-            setIsRunning(true);
-            setInput(""); // Limpa o input após iniciar
-        } else {
-            toast.warn('Por favor, insira um valor válido!');
+    const id = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime - 1;
+        if (newTime <= 0) {
+          clearInterval(id);
+          setIsRunning(false);
+          localStorage.removeItem("timer-endTime");
+          localStorage.removeItem("timer-isRunning");
+          return 0;
         }
-    };
+        return newTime;
+      });
+    }, 1000);
 
-    const pause = () => {
-        clearInterval(intervalId);
-        setIsRunning(false); // Pausa o timer
-    };
+    setIntervalId(id);
+    return () => clearInterval(id);
+  }, [isRunning]);
 
-    const reset = () => {
-        clearInterval(intervalId);
-        setIsRunning(false);
-        setTime(0); // Reinicia o contador
-        setInputType("number"); // Permite ao usuário inserir um novo valor
-    };
+  const start = () => {
+    const parsedTime = parseInt(input);
+    if (!isNaN(parsedTime) && parsedTime > 0) {
+      const totalTime = parsedTime * 60;
+      const endTime = Date.now() + totalTime * 1000;
+      localStorage.setItem("timer-endTime", endTime);
+      localStorage.setItem("timer-isRunning", "true");
+      setTime(totalTime);
+      setIsRunning(true);
+      setInput("");
+    } else {
+      toast.warn("Por favor, insira um valor válido!");
+    }
+  };
 
-    const handleInputChange = (e) => {
-        setInput(e.target.value);
-    };
+  const pause = () => {
+    clearInterval(intervalId);
+    localStorage.setItem("timer-endTime", Date.now() + time * 1000);
+    localStorage.setItem("timer-isRunning", "false");
+    setIsRunning(false);
+  };
 
-    const formatTime = (time) => {
-        const hours = Math.floor(time / 3600); // Calcula as horas
-        const minutes = Math.floor((time % 3600) / 60); // Calcula os minutos
-        const seconds = time % 60; // Calcula os segundos
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    };
+  const reset = () => {
+    clearInterval(intervalId);
+    localStorage.removeItem("timer-endTime");
+    localStorage.removeItem("timer-isRunning");
+    setIsRunning(false);
+    setTime(0);
+  };
 
-    const continueTimer = () => {
-        setIsRunning(true); // Retoma o timer sem reiniciar
-    };
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
 
-    // Estilo condicional para os números no final
-    const timeColor = time <= 10 ? 'red' : 'black';  // Muda a cor para vermelho quando restar 10 ou menos segundos
+  const formatTime = (time) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  };
 
-    return (
-        <div className="timer-container">
-            <div className="input-container">
-                <input
-                    type={inputType}
-                    value={input}
-                    onChange={handleInputChange}
-                    placeholder="Digite o tempo (minutos ou horas)"
-                    disabled={isRunning} // Desabilita o input enquanto o timer está rodando
-                />
-                <button className="buttonStyle" onClick={start}>Iniciar</button>
-            </div>
+  return (
+    <div className="timer-container">
+      <div className="input-container">
+        <input
+          type="number"
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Digite o tempo em minutos"
+          disabled={isRunning}
+        />
+        <button className="buttonStyle" onClick={start}>
+          Iniciar
+        </button>
+      </div>
 
-            <div className="countdown">
-                <h2 style={{ color: timeColor }}>
-                    {time > 0 ? formatTime(time) : "00:00:00"}
-                </h2>
-                {time === 0 && !isRunning}
-            </div>
+      <div className="countdown">
+        <h2>{time > 0 ? formatTime(time) : "00:00:00"}</h2>
+      </div>
 
-            <div className="controls">
-                {isRunning ? (
-                    <button className="buttonStyle" onClick={pause}>Pausar</button>
-                ) : (
-                    <button className="buttonStyle" onClick={continueTimer}>Continuar</button>
-                )}
-                <button className="buttonStyle" onClick={reset}>Reiniciar</button>
-            </div>
-        </div>
-    );
+      <div className="controls">
+        {isRunning ? (
+          <button className="buttonStyle" onClick={pause}>
+            Pausar
+          </button>
+        ) : (
+          <button className="buttonStyle" onClick={() => setIsRunning(true)}>
+            Continuar
+          </button>
+        )}
+        <button className="buttonStyle" onClick={reset}>
+          Reiniciar
+        </button>
+      </div>
+    </div>
+  );
 }
